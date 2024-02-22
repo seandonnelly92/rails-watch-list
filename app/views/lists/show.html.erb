@@ -1,10 +1,14 @@
 <div style="padding:30px">
   <h1><%= @list.name %></h1>
-  <h3 style="padding-top: 30px">My Bookmarks</h3>
-  <p>My bookmarks should show here...</p><br>
-
-
-  <h3>Add a Bookmark</h3><br>
+  <div>
+    <h5 style="padding-top: 30px">My Bookmarks</h5>
+      <% @bookmarks.each do |bookmark| %>
+      <div>
+        <%= link_to bookmark[:movie], list_bookmark_path(bookmark) %>
+        <%= bookmark[:comment] %>
+        <% end %>
+  </div>
+  <br>
   <%= link_to "Add a Bookmark to #{@list.name}", new_list_bookmark_path(@list) %>
   <br><br>
   <%= link_to "Back to List", lists_path %>
