@@ -1,0 +1,11 @@
+<div style="padding:30px">
+  <h1>Create a new list</h1>
+
+  <%= simple_form_for(@list) do |f| %>
+    <%= f.input :name %>
+    <%= f.submit %>
+  <% end %>
+  <p> <br> <%= link_to "Back to Lists", lists_path %> </p>
+
+  <%# http://localhost:3000/bookmarks/new %>
+</div>

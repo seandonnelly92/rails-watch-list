@@ -1,0 +1,15 @@
+<div style="padding:30px">
+<h1>Lists</h1>
+  <%# Create a list %>
+  <%= link_to "Create a new list", new_list_path %>
+
+  <%# Click on a list from a list of lists %>
+  <div>
+  <h5 style="padding-top: 30px">My Lists</h5>
+    <% @lists.each do |list| %>
+    <div>
+      <%= link_to list[:name], list_path(list) %>
+      <% end %>
+    </div>
+  </div>
+</div>
