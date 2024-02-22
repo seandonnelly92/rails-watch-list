@@ -11,21 +11,20 @@ class BookmarksController < ApplicationController
 
   def new
     @bookmark = Bookmark.new
+    @list = List.find(params[:list_id]) # as above
   end
 
   def create
     @bookmark = Bookmark.new(bookmark_params)
-    @movie = Movie.find(params[:movie_id]) # Needed because movie_id is the reference in this table
-    @bookmark.movie_id = @movie.id # Setting the movie ID using new @movie instance
-    @list = List.find(params[:list_id]) # as above
-    @bookmark.list_id = @list.id # as above
+    @list = List.find(params[:list_id]) # Needed because movie_id is the reference in this table
+    @bookmark.list_id = @list.id # Setting the movie ID using new @movie instance
     @bookmark.save
-    redirect_to bookmarks_path(@bookmark)
+    redirect_to list_path(@list)
   end
 
   def destroy
     @bookmark.destroy
-    redirect_to bookmarks_path, status: :see_other # Not sure what see_other part is 
+    redirect_to bookmarks_path, status: :see_other # Not sure what see_other part is
   end
 
   private
@@ -35,6 +34,6 @@ class BookmarksController < ApplicationController
   end
 
   def bookmark_params
-    params.require(:bookmark).permit(:comment)
+    params.require(:bookmark).permit(:comment, :movie_id)
   end
 end
