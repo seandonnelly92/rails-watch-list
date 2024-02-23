@@ -16,8 +16,14 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.new(bookmark_params)
     @list = List.find(params[:list_id]) # Needed because movie_id is the reference in this table
     @bookmark.list = @list # Setting the movie ID using new @movie instance
-    @bookmark.save
-    redirect_to list_path(@list)
+    if @bookmark.save
+      redirect_to list_path(@list)
+    else
+      render 'lists/show', status: :unprocessable_entity
+    end
+
+
+
   end
 
   def destroy
