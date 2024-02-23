@@ -1,15 +1,33 @@
 <div style="padding:30px">
   <h1><%= @list.name %></h1>
-  <div>
-    <h5 style="padding-top: 30px">My Bookmarks</h5>
-      <% @bookmarks.each do |bookmark| %>
+  <p> <%= link_to "Delete this list", list_path(@list), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
+
+  <div style="padding-top: 30px">
+      <% @list.bookmarks.each do |bookmark| %>
       <div>
-        <%= link_to bookmark[:movie], list_bookmark_path(bookmark) %>
-        <%= bookmark[:comment] %>
+        <h6><strong><%= bookmark.movie.title %></strong></h6>
+        <p><%= link_to "Delete this movie from List", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
+
+        <p>Overview: <%= bookmark.movie.overview %></p>
+        <p>Rating: <%= bookmark.movie.rating %></p>
+        <p>Comment: <%= bookmark.comment %></p>
+        <p><%= link_to "Delete this movie from List", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
+        <br>
         <% end %>
   </div>
   <br>
-  <%= link_to "Add a Bookmark to #{@list.name}", new_list_bookmark_path(@list) %>
+
+<h2>Add a movie to this list</h2>
+
+<%= simple_form_for [@list, @bookmark] do |f| %> <%# Needs @list first because @bookmark is nested inside it %>
+  <%# How to select a movie from the data base via a dropdown?! %>
+  <%= f.association :movie %>
+  <%= f.input :comment %>
+  <%= f.submit "Add Movie", class: "btn btn-primary" %>
+<% end %>
+
+
   <br><br>
-  <%= link_to "Back to List", lists_path %>
+  <%= link_to "Back to Lists", lists_path %>
+</div>
 </div>

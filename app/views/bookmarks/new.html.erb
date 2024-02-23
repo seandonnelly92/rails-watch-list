@@ -1,9 +1,12 @@
-<h1>New Bookmark</h1>
+<%# NOT NEEDED ANYMORE %>
 
-<%= simple_form_for [@list, @bookmark] do |f| %>
-  <%= f.input :comment %>
+<h1>Add a Movie</h1>
+
+
+<%= simple_form_for [@list, @bookmark] do |f| %> <%# Needs @list first because @bookmark is nested inside it %>
   <%# How to select a movie from the data base via a dropdown?! %>
   <%= f.association :movie %>
+  <%= f.input :comment %>
   <%= f.submit %>
 <% end %>
 

@@ -7,9 +7,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :lists do # only: %i[new create]
-    resources :bookmarks # only: %i[new create destroy]
+  resources :lists, only: %i[index new create show destroy] do
+    resources :bookmarks, only: %i[new create]
   end
+  resources :bookmarks, only: [:destroy]
 end
 
 
